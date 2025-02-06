@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cena con María ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            background: linear-gradient(135deg, #FFE5E5, #E5F6FF);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            position: relative;
+        }
+        .menu-section {
+            display: none;
+            margin-top: 20px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+        .menu-section.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+        button {
+            background-color: #FF69B4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        button:hover {
+            background-color: #FF1493;
+            transform: scale(1.05);
+        }
+        #no-button {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="invitation">
+            <h1 style="color: #FF69B4; font-family: 'Caveat', cursive;">María 💕</h1>
+            <p>Te invito a una cena especial el 6 de febrero a las 7 pm</p>
+            <button onclick="startMenuReveal()">Ver Menú</button>
+        </div>
+
+        <div id="menu">
+            <div id="starter" class="menu-section">
+                <h2>Entrada 🥑</h2>
+                <p>Nachos con quesos y guacamole</p>
+                <button onclick="nextSection('starter', 'main')">Siguiente</button>
+            </div>
+
+            <div id="main" class="menu-section">
+                <h2>Plato Fuerte 🍝</h2>
+                <p>Lasagna de la casa</p>
+                <button onclick="nextSection('main', 'dessert')">Siguiente</button>
+            </div>
+
+            <div id="dessert" class="menu-section">
+                <h2>Postre 🍮</h2>
+                <p>Secreto Dulce de la Noche...</p>
+                <button onclick="nextSection('dessert', 'final')">Siguiente</button>
+            </div>
+
+            <div id="final" class="menu-section">
+                <h2>¿Quieres venir? 💕</h2>
+                <div style="position: relative; height: 200px;">
+                    <a href="https://wa.me/+573144913159?text=Nos%20vemos%20hoy%20a%20las%207%20papasito%2C%20muack" 
+                       id="yes-button" 
+                       style="text-decoration: none;">
+                        <button>¡Sí quiero!</button>
+                    </a>
+                    <button id="no-button">No quiero</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startMenuReveal() {
+            document.getElementById('invitation').style.display = 'none';
+            document.getElementById('starter').classList.add('active');
+        }
+
+        function nextSection(currentSection, nextSection) {
+            document.getElementById(currentSection).classList.remove('active');
+            document.getElementById(nextSection).classList.add('active');
+        }
+
+        const noButton = document.getElementById('no-button');
+        const container = document.querySelector('.container');
+
+        noButton.addEventListener('mouseover', () => {
+            const containerRect = container.getBoundingClientRect();
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+
+            const randomX = Math.max(0, Math.random() * (containerRect.width - buttonWidth));
+            const randomY = Math.max(0, Math.random() * (containerRect.height - buttonHeight));
+
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+        });
+    </script>
+</body>
+</html>
